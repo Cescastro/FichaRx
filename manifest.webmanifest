@@ -1,0 +1,18 @@
+{
+  "name": "Manual de Medicamentos FO-SF-20",
+  "short_name": "Manual Mx",
+  "description": "Guía de estabilidad y manejo de medicamentos, offline first",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0f766e",
+  "orientation": "portrait",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' fill='%230f766e' rx='32'/%3E%3Cpath d='M60 70h72v10H60zm0 22h72v10H60zm0 22h48v10H60z' fill='white'/%3E%3Ccircle cx='96' cy='55' r='14' fill='white'/%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    }
+  ]
+}
