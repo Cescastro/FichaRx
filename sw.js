@@ -1,10 +1,17 @@
 // Service Worker — Manual de medicamentos FO-SF-20
-const CACHE_NAME = 'manual-fosf20-v1';
+const CACHE_NAME = 'manual-fosf20-v2';
 const ASSETS = [
   './',
   'index.html',
   'dataset_final.json',
-  'manifest.webmanifest'
+  'manifest.webmanifest',
+  'css/styles.css',
+  'js/app.js',
+  'js/search.js',
+  'js/render.js',
+  'js/ficha.js',
+  'js/history.js',
+  'js/utils.js',
 ];
 
 self.addEventListener('install', (event) => {
