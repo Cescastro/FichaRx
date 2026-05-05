@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <meta name="theme-color" content="#0f766e">
-<title>MediCheck — Manual de Medicamentos FO-SF-20</title>
+<title>VidaCheck — Manual de Medicamentos FO-SF-20</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -12,10 +12,11 @@
 
 <header>
   <div class="header-inner">
-    <img src="UNAC_logo.jpeg" alt="UNAC" style="height:40px; width:auto; border-radius:6px; flex-shrink:0;">
+    <div style="background:white;border-radius:10px;padding:4px 10px;flex-shrink:0;display:flex;align-items:center;">
+      <img src="vidaCheck_mini.png" alt="VidaCheck" style="height:52px;width:auto;display:block;">
+    </div>
     <div class="brand">
-      MediCheck
-      <small>Manual de Medicamentos · FO-SF-20 v8.1</small>
+      <small style="font-size:13px;opacity:0.9;display:block;">Manual de Medicamentos · FO-SF-20 v8.1</small>
     </div>
     <div class="badge-offline" id="offline-badge">
       <span class="dot" id="online-dot"></span>
@@ -29,6 +30,7 @@
     </div>
   </nav>
 </header>
+
 
 <div id="tab-inicio" class="tab-panel">
 <div class="search-wrap">
@@ -58,7 +60,7 @@
         </svg>
       </div>
       <div>
-        <div class="about-app-name">MediCheck</div>
+        <div class="about-app-name">VidaCheck</div>
         <div class="about-app-sub">Manual de Medicamentos · FO-SF-20 v8.1</div>
       </div>
     </div>
@@ -66,14 +68,16 @@
     <div class="about-section">
       <div class="about-section-title">Acerca de la Aplicación</div>
       <div class="about-body">
-        <p>MediCheck es una herramienta digital desarrollada con el propósito de fortalecer la seguridad en la administración de medicamentos y promover una cultura institucional basada en la calidad del cuidado. Surge como respuesta a la necesidad de contar con un apoyo práctico, confiable y de fácil acceso en el entorno clínico, especialmente en escenarios donde la toma de decisiones debe ser rápida y precisa.</p>
-        <p>Esta aplicación ha sido diseñada para facilitar la consulta oportuna de información clave relacionada con medicamentos, incluyendo aspectos fundamentales como su correcta administración, diluciones, compatibilidades e interacciones. De esta manera, MediCheck se posiciona como un aliado estratégico para el personal de enfermería, contribuyendo a la reducción de errores y al cumplimiento riguroso de los protocolos establecidos.</p>
+        <p>VidaCheck es una herramienta digital desarrollada con el propósito de fortalecer la seguridad en la administración de medicamentos y promover una cultura institucional basada en la calidad del cuidado. Surge como respuesta a la necesidad de contar con un apoyo práctico, confiable y de fácil acceso en el entorno clínico, especialmente en escenarios donde la toma de decisiones debe ser rápida y precisa.</p>
+        <p>Esta aplicación ha sido diseñada para facilitar la consulta oportuna de información clave relacionada con medicamentos, incluyendo aspectos fundamentales como su correcta administración, diluciones, compatibilidades e interacciones. De esta manera, VidaCheck se posiciona como un aliado estratégico para el personal de enfermería, contribuyendo a la reducción de errores y al cumplimiento riguroso de los protocolos establecidos.</p>
         <p>El desarrollo de este proyecto está orientado a su implementación en la Fundación Clínica Vida, con el objetivo de fortalecer la adherencia a los lineamientos institucionales en la administración segura de medicamentos. A través de su uso, se busca incentivar en el personal de salud el hábito de verificar la información antes de cada procedimiento, garantizando así prácticas seguras, estandarizadas y centradas en el bienestar del paciente.</p>
-        <p>MediCheck no solo representa una innovación tecnológica, sino también un compromiso con la excelencia en la atención, al integrar conocimiento clínico, accesibilidad y enfoque preventivo. Su finalidad es acompañar de manera continua al profesional de enfermería en su labor diaria, brindando respaldo en la toma de decisiones y contribuyendo a una atención más segura, eficiente y humanizada.</p>
+        <p>VidaCheck no solo representa una innovación tecnológica, sino también un compromiso con la excelencia en la atención, al integrar conocimiento clínico, accesibilidad y enfoque preventivo. Su finalidad es acompañar de manera continua al profesional de enfermería en su labor diaria, brindando respaldo en la toma de decisiones y contribuyendo a una atención más segura, eficiente y humanizada.</p>
       </div>
     </div>
 
-    <div class="about-quote">"Consulta hoy, administra seguro, cuida siempre."</div>
+    <div class="about-section" style="text-align:center; padding: 24px 22px;">
+      <img src="VidaCheck_full.png" alt="VidaCheck" style="width:100%;max-width:320px;height:auto;border-radius:12px;">
+    </div>
 
     <div class="about-authors">
       <div class="about-authors-title">Autores del proyecto</div>
@@ -91,8 +95,9 @@
           <div class="author-info-role">Práctica de gestión y profundización · UCI · Enfermería Profesional</div>
         </div>
       </div>
-      <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-muted);">
-        Unidad de Cuidados Intensivos (UCI) · Fundación Clínica Vida
+      <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); display: flex; align-items: center; gap: 10px;">
+        <img src="UNAC_logo.jpeg" alt="UNAC" style="height:36px; width:auto; border-radius:6px; flex-shrink:0;">
+        <span style="font-size: 12px; color: var(--text-muted);">Unidad de Cuidados Intensivos (UCI) · Fundación Clínica Vida</span>
       </div>
     </div>
 

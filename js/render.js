@@ -20,9 +20,9 @@ export function renderResultados(resultados, query, data) {
     if (!historial.length) {
       cont.innerHTML = `
         <div class="empty-state">
-          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
-          </svg>
+          <div style="background:white;border-radius:16px;padding:16px 20px;margin-bottom:20px;box-shadow:0 4px 16px rgba(0,0,0,0.10);display:inline-block;">
+            <img src="VidaCheck_full.png" alt="VidaCheck" style="width:240px;height:auto;display:block;">
+          </div>
           <p style="font-size: 15px; margin-bottom: 6px;">Busca por nombre genérico o comercial</p>
           <p style="font-size: 13px;">${data.length} medicamentos disponibles · 100% offline</p>
         </div>`;
