@@ -31,9 +31,80 @@ input { font: inherit; }
 
 /* ===== HEADER ===== */
 header {
-  background: var(--teal-700); color: white; padding: 10px 16px;
+  background: var(--teal-700); color: white; padding: 10px 16px 0;
   position: sticky; top: 0; z-index: 50; box-shadow: var(--shadow);
 }
+
+/* ===== TABS NAV ===== */
+.tab-nav { margin: 8px -16px 0; padding: 0 16px; border-top: 1px solid rgba(255,255,255,0.18); }
+.tab-nav-inner { max-width: 888px; margin: 0 auto; display: flex; gap: 2px; }
+.tab-btn {
+  padding: 9px 18px 11px; font-size: 14px; font-weight: 500;
+  color: rgba(255,255,255,0.88); border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s; border-radius: 4px 4px 0 0;
+}
+.tab-btn.active { color: white; border-bottom-color: white; }
+.tab-btn:hover:not(.active) { color: white; }
+
+/* ===== TAB PANELS ===== */
+.tab-panel { display: block; }
+.tab-panel.hidden { display: none !important; }
+
+/* ===== ABOUT PAGE ===== */
+.about-wrap { max-width: 680px; margin: 0 auto; padding: 24px 16px 80px; }
+.about-logo-row {
+  display: flex; align-items: center; gap: 14px;
+  background: var(--teal-700); color: white;
+  border-radius: 14px; padding: 20px 22px; margin-bottom: 20px;
+}
+.about-logo-icon {
+  width: 52px; height: 52px; border-radius: 12px;
+  background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.about-app-name { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; }
+.about-app-sub { font-size: 13px; opacity: 0.8; margin-top: 2px; }
+.about-section {
+  background: white; border: 1px solid var(--border); border-radius: 12px;
+  padding: 20px 22px; margin-bottom: 12px;
+}
+.about-section-title {
+  font-size: 13px; font-weight: 600; color: var(--teal-700);
+  text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 14px;
+  display: flex; align-items: center; gap: 8px;
+}
+.about-section-title::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+.about-body p {
+  font-size: 14px; color: var(--gray-700); line-height: 1.65; margin-bottom: 12px;
+}
+.about-body p:last-child { margin-bottom: 0; }
+.about-quote {
+  background: var(--teal-50); border: 1px solid var(--teal-100);
+  border-left: 4px solid var(--teal-600);
+  border-radius: 8px; padding: 16px 18px; margin-bottom: 12px;
+  font-size: 15px; font-style: italic; font-weight: 500;
+  color: var(--teal-900); text-align: center; line-height: 1.5;
+}
+.about-authors {
+  background: var(--gray-50); border: 1px solid var(--border); border-radius: 12px;
+  padding: 16px 20px;
+}
+.about-authors-title {
+  font-size: 12px; font-weight: 600; color: var(--text-muted);
+  text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px;
+}
+.author-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; }
+.author-row:last-child { margin-bottom: 0; }
+.author-avatar {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--teal-100); color: var(--teal-700);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700; flex-shrink: 0; letter-spacing: -0.02em;
+}
+.author-info-name { font-size: 14px; font-weight: 600; color: var(--gray-800); }
+.author-info-role { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
 .header-inner { max-width: 920px; margin: 0 auto; display: flex; align-items: center; gap: 12px; }
 .brand { font-weight: 600; font-size: 16px; letter-spacing: -0.01em; flex: 1; }
 .brand small { font-weight: 400; opacity: 0.8; font-size: 12px; display: block; }
@@ -203,8 +274,15 @@ header {
       <span id="offline-text">Disponible offline</span>
     </div>
   </div>
+  <nav class="tab-nav" aria-label="Secciones">
+    <div class="tab-nav-inner">
+      <button class="tab-btn active" data-tab="inicio" onclick="showTab('inicio')">Inicio</button>
+      <button class="tab-btn" data-tab="acerca" onclick="showTab('acerca')">Acerca de</button>
+    </div>
+  </nav>
 </header>
 
+<div id="tab-inicio" class="tab-panel">
 <div class="search-wrap">
   <div class="search-container">
     <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -218,6 +296,60 @@ header {
 </div>
 
 <main class="results" id="results"></main>
+</div><!-- /tab-inicio -->
+
+<!-- PESTAÑA ACERCA DE -->
+<div id="tab-acerca" class="tab-panel hidden">
+  <div class="about-wrap">
+
+    <div class="about-logo-row">
+      <div class="about-logo-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+          <path d="M10 2v7.31"/><path d="M14 9.3V1.99"/><path d="M8.5 2h7"/>
+          <path d="M14 9.3a6.5 6.5 0 1 1-4 0"/>
+        </svg>
+      </div>
+      <div>
+        <div class="about-app-name">MediCheck</div>
+        <div class="about-app-sub">Manual de Medicamentos · FO-SF-20 v8.1</div>
+      </div>
+    </div>
+
+    <div class="about-section">
+      <div class="about-section-title">Acerca de la Aplicación</div>
+      <div class="about-body">
+        <p>MediCheck es una herramienta digital desarrollada con el propósito de fortalecer la seguridad en la administración de medicamentos y promover una cultura institucional basada en la calidad del cuidado. Surge como respuesta a la necesidad de contar con un apoyo práctico, confiable y de fácil acceso en el entorno clínico, especialmente en escenarios donde la toma de decisiones debe ser rápida y precisa.</p>
+        <p>Esta aplicación ha sido diseñada para facilitar la consulta oportuna de información clave relacionada con medicamentos, incluyendo aspectos fundamentales como su correcta administración, diluciones, compatibilidades e interacciones. De esta manera, MediCheck se posiciona como un aliado estratégico para el personal de enfermería, contribuyendo a la reducción de errores y al cumplimiento riguroso de los protocolos establecidos.</p>
+        <p>El desarrollo de este proyecto está orientado a su implementación en la Fundación Clínica Vida, con el objetivo de fortalecer la adherencia a los lineamientos institucionales en la administración segura de medicamentos. A través de su uso, se busca incentivar en el personal de salud el hábito de verificar la información antes de cada procedimiento, garantizando así prácticas seguras, estandarizadas y centradas en el bienestar del paciente.</p>
+        <p>MediCheck no solo representa una innovación tecnológica, sino también un compromiso con la excelencia en la atención, al integrar conocimiento clínico, accesibilidad y enfoque preventivo. Su finalidad es acompañar de manera continua al profesional de enfermería en su labor diaria, brindando respaldo en la toma de decisiones y contribuyendo a una atención más segura, eficiente y humanizada.</p>
+      </div>
+    </div>
+
+    <div class="about-quote">"Consulta hoy, administra seguro, cuida siempre."</div>
+
+    <div class="about-authors">
+      <div class="about-authors-title">Autoras del proyecto</div>
+      <div class="author-row">
+        <div class="author-avatar">JG</div>
+        <div>
+          <div class="author-info-name">José David Gallego Romero</div>
+          <div class="author-info-role">Práctica de gestión y profundización · UCI · Enfermería Profesional</div>
+        </div>
+      </div>
+      <div class="author-row">
+        <div class="author-avatar">AL</div>
+        <div>
+          <div class="author-info-name">Ana Milena Lainez</div>
+          <div class="author-info-role">Práctica de gestión y profundización · UCI · Enfermería Profesional</div>
+        </div>
+      </div>
+      <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-muted);">
+        Unidad de Cuidados Intensivos (UCI) · Fundación Clínica Vida
+      </div>
+    </div>
+
+  </div>
+</div><!-- /tab-acerca -->
 
 <!-- FICHA OVERLAY -->
 <div class="ficha-overlay" id="ficha">
@@ -654,8 +786,23 @@ if ('serviceWorker' in navigator) {
   });
 }
 
+// ============= NAVEGACIÓN POR PESTAÑAS =============
+function showTab(name) {
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === name);
+  });
+  document.querySelectorAll('.tab-panel').forEach(p => {
+    p.classList.toggle('hidden', p.id !== 'tab-' + name);
+  });
+  window.scrollTo(0, 0);
+  if (name === 'inicio') {
+    setTimeout(() => document.getElementById('search').focus(), 50);
+  }
+}
+
 // Exposición para onclick inline
 window.abrirFicha = abrirFicha;
+window.showTab = showTab;
 </script>
 </body>
 </html>
