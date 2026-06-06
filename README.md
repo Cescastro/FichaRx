@@ -1,16 +1,20 @@
-# Prototipo — Manual de Medicamentos FO-SF-20
+# FichaRx — Manual de Medicamentos FO-SF-20
 
 Prototipo navegable para validar la UX del buscador y la ficha unificada antes
 de invertir en backend y stack completo.
 
 ## Contenido
 
-- **prototipo_standalone.html** — ⭐ Versión todo-en-uno. Ábrelo con doble clic
-  en cualquier navegador. Funciona sin servidor ni internet.
-
-- **index.html + dataset_final.json + sw.js + manifest.webmanifest** — Versión
-  PWA real. Requiere servidor local (abajo cómo levantarlo). Es la que debería
-  ir a producción.
+| Archivo / Carpeta | Propósito |
+| --- | --- |
+| `prototipo_standalone.html` | Versión todo-en-uno. Sin servidor ni internet. |
+| `index.html` | Entrada PWA — carga el dataset en tiempo de ejecución |
+| `dataset_final.json` | 847 medicamentos consolidados de las 7 hojas del Excel FO-SF-20 v8.1 |
+| `sw.js` | Service Worker — cachea todos los assets para uso offline |
+| `manifest.webmanifest` | Manifiesto PWA (nombre, íconos, color de tema) |
+| `css/styles.css` | Estilos globales |
+| `js/` | Módulos ES organizados por capas (ver Arquitectura) |
+| `img/` | Assets gráficos (logo FichaRx) |
 
 ## Cómo probar
 
@@ -19,27 +23,58 @@ Abre `prototipo_standalone.html` con doble clic. Listo.
 
 ### Opción B — Como PWA real (recomendada para demo)
 ```bash
-cd prototipo-fosf20
-python3 -m http.server 8080
+python -m http.server 8080
 # Abrir http://localhost:8080 en Chrome/Edge
 # Chrome mostrará "Instalar app" en la barra de direcciones
 ```
 
-Instalada como PWA, aparece como app independiente en el sistema operativo
-y funciona sin conexión (Service Worker cachea todo).
+Instalada como PWA, aparece como app independiente y funciona sin conexión
+(el Service Worker cachea todo en el primer acceso).
+
+## Arquitectura JS
+
+El código está separado en capas bajo `js/`:
+
+```
+js/
+├── domain/
+│   └── Medicamento.js              # Entidad del dominio
+├── application/
+│   ├── BusquedaService.js          # Lógica de búsqueda fuzzy (tolerante a acentos)
+│   └── commands/
+│       ├── BuscarCommand.js
+│       ├── AbrirFichaCommand.js
+│       └── CerrarFichaCommand.js
+├── infrastructure/
+│   ├── JsonMedicamentosRepository.js   # Carga dataset_final.json
+│   └── LocalStorageHistorialRepo.js    # Historial de consultas
+├── presentation/
+│   ├── AppController.js            # Orquestador principal
+│   ├── FichaBuilder.js             # Construye la ficha completa
+│   ├── FichaView.js                # Render y animaciones de la ficha
+│   ├── ResultadosRenderer.js       # Lista de resultados de búsqueda
+│   ├── SectionFactory.js           # Fábrica de secciones de la ficha
+│   └── sections/
+│       ├── AltoRiesgoSection.js
+│       ├── MultidosisSection.js
+│       ├── HorarioVoSection.js
+│       ├── PresentacionesSection.js
+│       ├── FuentesSection.js
+│       └── SectionRenderer.js
+└── app.js                          # Bootstrap
+```
 
 ## Lo que valida este prototipo
 
-1. ✅ **Búsqueda única** — exactamente lo que pidió el usuario en el audio:
-   "que yo coloque solo el medicamento en un buscador"
-2. ✅ **Tolerancia a acentos y variaciones** — busca "amiodarona" o
-   "AMIODARÓNA" o "amiodarona clorhidrato" y encuentra lo mismo
-3. ✅ **Ficha unificada** — toda la información del medicamento en una
-   sola pantalla, sin importar de qué hoja del Excel venga
-4. ✅ **Alertas clínicas visibles** — alto riesgo se muestra como banner
-   prominente arriba de la ficha
-5. ✅ **Responsive mobile-first** — probá abriéndolo en el celular
-6. ✅ **Offline real** — instalá como PWA y apagá el wifi
+1. **Búsqueda única** — exactamente lo que pidió el usuario: "que yo coloque solo el medicamento en un buscador"
+2. **Tolerancia a acentos y variaciones** — `amiodarona`, `AMIODARÓNA` y `amiodarona clorhidrato` encuentran lo mismo
+3. **Ficha unificada** — toda la información en una sola pantalla, sin importar de qué hoja del Excel provenga
+4. **Alertas clínicas visibles** — alto riesgo se muestra como banner prominente al tope de la ficha
+5. **Secciones interactivas** — presentaciones y secciones colapsables; presentaciones expandibles con detalle completo
+6. **Historial de consultas** — guarda los últimos medicamentos consultados en `localStorage`
+7. **Patrón Command** — acciones de búsqueda, apertura y cierre de ficha encapsuladas como comandos
+8. **Responsive mobile-first** — probalo abriendo en el celular
+9. **Offline real** — instalá como PWA y apagá el wifi
 
 ## Casos de prueba sugeridos
 
