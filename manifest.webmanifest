@@ -1,11 +1,11 @@
 {
-  "name": "Manual de Medicamentos FO-SF-20",
-  "short_name": "Manual Mx",
+  "name": "FichaRx",
+  "short_name": "FichaRx",
   "description": "Guía de estabilidad y manejo de medicamentos, offline first",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#0f766e",
+  "theme_color": "#0A3DCC",
   "orientation": "portrait",
   "lang": "es",
   "icons": [

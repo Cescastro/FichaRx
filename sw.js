@@ -1,5 +1,5 @@
-// Service Worker — Manual de medicamentos FO-SF-20
-const CACHE_NAME = 'manual-fosf20-v2';
+// Service Worker — FichaRx · Manual de medicamentos FO-SF-20
+const CACHE_NAME = 'fichaRx-v4';
 const ASSETS = [
   './',
   'index.html',
@@ -12,6 +12,9 @@ const ASSETS = [
   'js/ficha.js',
   'js/history.js',
   'js/utils.js',
+  'img/FichaRX_Logo.svg',
+  'img/RxLogo.png',
+  'img/fichaRxbanner.png',
 ];
 
 self.addEventListener('install', (event) => {

@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<meta name="theme-color" content="#0f766e">
-<title>VidaCheck — Manual de Medicamentos FO-SF-20</title>
+<meta name="theme-color" content="#0A3DCC">
+<title>FichaRx — Manual de Medicamentos FO-SF-20</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -12,15 +12,27 @@
 
 <header>
   <div class="header-inner">
-    <div style="background:white;border-radius:10px;padding:4px 10px;flex-shrink:0;display:flex;align-items:center;">
-      <img src="vidaCheck_mini.png" alt="VidaCheck" style="height:52px;width:auto;display:block;">
+    <div class="brand-block">
+      <div class="banner-wrap">
+        <img src="img/RxLogo.png" alt="FichaRx" class="header-banner">
+      </div>
+      <div class="brand-text">
+        <span class="brand-name">Ficha<span class="brand-name-rx">Rx</span></span>
+        <span class="brand-tagline">Manual de medicamentos</span>
+      </div>
     </div>
-    <div class="brand">
-      <small style="font-size:13px;opacity:0.9;display:block;">Manual de Medicamentos · FO-SF-20 v8.1</small>
+    <div class="header-search-wrap" id="header-search-wrap">
+      <div class="header-search-container">
+        <svg class="header-search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+        </svg>
+        <input type="search" id="header-search" class="header-search-input" placeholder="Buscar medicamento..." autocomplete="off" spellcheck="false">
+      </div>
     </div>
-    <div class="badge-offline" id="offline-badge">
-      <span class="dot" id="online-dot"></span>
-      <span id="offline-text">Disponible offline</span>
+    <div class="offline-icon" id="offline-badge" title="Disponible offline">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+      </svg>
     </div>
   </div>
   <nav class="tab-nav" aria-label="Secciones">
@@ -53,54 +65,19 @@
   <div class="about-wrap">
 
     <div class="about-logo-row">
-      <div class="about-logo-icon">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-          <path d="M10 2v7.31"/><path d="M14 9.3V1.99"/><path d="M8.5 2h7"/>
-          <path d="M14 9.3a6.5 6.5 0 1 1-4 0"/>
-        </svg>
-      </div>
-      <div>
-        <div class="about-app-name">VidaCheck</div>
-        <div class="about-app-sub">Manual de Medicamentos · FO-SF-20 v8.1</div>
-      </div>
+      <img src="img/RxLogo.png" alt="FichaRx" class="about-banner-img">
+      <div class="about-app-sub">FO-SF-20 v8.1 ·</div>
     </div>
 
     <div class="about-section">
       <div class="about-section-title">Acerca de la Aplicación</div>
       <div class="about-body">
-        <p>VidaCheck es una herramienta digital desarrollada con el propósito de fortalecer la seguridad en la administración de medicamentos y promover una cultura institucional basada en la calidad del cuidado. Surge como respuesta a la necesidad de contar con un apoyo práctico, confiable y de fácil acceso en el entorno clínico, especialmente en escenarios donde la toma de decisiones debe ser rápida y precisa.</p>
-        <p>Esta aplicación ha sido diseñada para facilitar la consulta oportuna de información clave relacionada con medicamentos, incluyendo aspectos fundamentales como su correcta administración, diluciones, compatibilidades e interacciones. De esta manera, VidaCheck se posiciona como un aliado estratégico para el personal de enfermería, contribuyendo a la reducción de errores y al cumplimiento riguroso de los protocolos establecidos.</p>
-        <p>El desarrollo de este proyecto está orientado a su implementación en la Fundación Clínica Vida, con el objetivo de fortalecer la adherencia a los lineamientos institucionales en la administración segura de medicamentos. A través de su uso, se busca incentivar en el personal de salud el hábito de verificar la información antes de cada procedimiento, garantizando así prácticas seguras, estandarizadas y centradas en el bienestar del paciente.</p>
-        <p>VidaCheck no solo representa una innovación tecnológica, sino también un compromiso con la excelencia en la atención, al integrar conocimiento clínico, accesibilidad y enfoque preventivo. Su finalidad es acompañar de manera continua al profesional de enfermería en su labor diaria, brindando respaldo en la toma de decisiones y contribuyendo a una atención más segura, eficiente y humanizada.</p>
+        <p>FichaRx es una herramienta digital desarrollada con el propósito de fortalecer la seguridad en la administración de medicamentos y promover una cultura institucional basada en la calidad del cuidado. Surge como respuesta a la necesidad de contar con un apoyo práctico, confiable y de fácil acceso en el entorno clínico, especialmente en escenarios donde la toma de decisiones debe ser rápida y precisa.</p>
+        <p>Esta aplicación ha sido diseñada para facilitar la consulta oportuna de información clave relacionada con medicamentos, incluyendo aspectos fundamentales como su correcta administración, diluciones, compatibilidades e interacciones. De esta manera, FichaRx se posiciona como un aliado estratégico para el personal de enfermería, contribuyendo a la reducción de errores y al cumplimiento riguroso de los protocolos establecidos.</p>
       </div>
     </div>
-
     <div class="about-section" style="text-align:center; padding: 24px 22px;">
-      <img src="VidaCheck_full.png" alt="VidaCheck" style="width:100%;max-width:320px;height:auto;border-radius:12px;">
     </div>
-
-    <div class="about-authors">
-      <div class="about-authors-title">Autores del proyecto</div>
-      <div class="author-row">
-        <div class="author-avatar">JG</div>
-        <div>
-          <div class="author-info-name">José David Gallego Romero</div>
-          <div class="author-info-role">Práctica de gestión y profundización · UCI · Enfermería Profesional</div>
-        </div>
-      </div>
-      <div class="author-row">
-        <div class="author-avatar">AL</div>
-        <div>
-          <div class="author-info-name">Ana Milena Lainez</div>
-          <div class="author-info-role">Práctica de gestión y profundización · UCI · Enfermería Profesional</div>
-        </div>
-      </div>
-      <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); display: flex; align-items: center; gap: 10px;">
-        <img src="UNAC_logo.jpeg" alt="UNAC" style="height:36px; width:auto; border-radius:6px; flex-shrink:0;">
-        <span style="font-size: 12px; color: var(--text-muted);">Unidad de Cuidados Intensivos (UCI) · Fundación Clínica Vida</span>
-      </div>
-    </div>
-
   </div>
 </div><!-- /tab-acerca -->
 
@@ -117,6 +94,13 @@
         <div class="ficha-title" id="ficha-title"></div>
         <div class="ficha-subtitle" id="ficha-subtitle"></div>
       </div>
+    </div>
+    <div class="ficha-riesgo-bar" id="riesgo-strip" style="display:none">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+        <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+      </svg>
+      MEDICAMENTO DE ALTO RIESGO
     </div>
   </div>
   <div class="ficha-content" id="ficha-content"></div>

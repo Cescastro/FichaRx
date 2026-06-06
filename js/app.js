@@ -5,20 +5,21 @@ import { clearHistorial } from './history.js';
 
 let DATA = [];
 let INDICE = [];
+let currentTab = 'inicio';
 
 function updateOnline() {
-  const dot = document.getElementById('online-dot');
-  const text = document.getElementById('offline-text');
+  const icon = document.getElementById('offline-badge');
   if (navigator.onLine) {
-    dot.classList.remove('off');
-    text.textContent = 'Disponible offline';
+    icon.classList.remove('off');
+    icon.title = 'Disponible offline';
   } else {
-    dot.classList.add('off');
-    text.textContent = 'Sin conexión · funcionando';
+    icon.classList.add('off');
+    icon.title = 'Sin conexión · funcionando';
   }
 }
 
 function showTab(name) {
+  currentTab = name;
   document.querySelectorAll('.tab-btn').forEach(b => {
     b.classList.toggle('active', b.dataset.tab === name);
   });
@@ -28,6 +29,8 @@ function showTab(name) {
   window.scrollTo(0, 0);
   if (name === 'inicio') {
     setTimeout(() => document.getElementById('search').focus(), 50);
+  } else {
+    document.getElementById('header-search-wrap').classList.remove('visible');
   }
 }
 
@@ -85,3 +88,20 @@ window.clearHistorial = () => { clearHistorial(); renderResultados([], '', DATA)
 window.showTab = showTab;
 
 init();
+
+// Búsqueda compacta en header: aparece cuando el buscador principal sale del viewport
+const headerSearchWrap = document.getElementById('header-search-wrap');
+const headerSearchInput = document.getElementById('header-search');
+const mainSearch = document.getElementById('search');
+
+new IntersectionObserver(([entry]) => {
+  if (currentTab === 'inicio') {
+    headerSearchWrap.classList.toggle('visible', !entry.isIntersecting);
+  }
+}, { threshold: 0 }).observe(mainSearch);
+
+headerSearchInput.addEventListener('input', (e) => {
+  const q = e.target.value;
+  mainSearch.value = q;
+  renderResultados(buscar(q, INDICE), q, DATA);
+});

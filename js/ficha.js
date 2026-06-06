@@ -1,6 +1,27 @@
 import { escapeHtml } from './utils.js';
 import { saveHistorial } from './history.js';
 
+function safetyClass(field, value) {
+  const v = (value || '').toUpperCase().trim();
+  if (!v) return 'neutral';
+  if (field === 'fotosensibilidad') {
+    if (v === 'SI' || v === 'SÍ') return 'caution';
+    if (v === 'NO') return 'ok';
+    return 'neutral';
+  }
+  if (v.includes('NO SE CONTRAINDICA') || v.includes('COMPATIBLE') || v.includes('PERMITID')) return 'ok';
+  if (v === 'NO' || v.includes('CONTRAINDICAD') || v.includes('NO SE RECOMIENDA') || v.includes('PROHIBID') || v.includes('CATEGORÍA X')) return 'danger';
+  if (v.includes('PRECAUCIÓN') || v.includes('PRECAUCION') || v.includes('CAUTELA') || v.includes('VIGILAR') || v.includes('MONITOREAR')) return 'caution';
+  return 'neutral';
+}
+
+function safetyIcon(cls) {
+  if (cls === 'ok')      return '✓';
+  if (cls === 'danger')  return '✗';
+  if (cls === 'caution') return '⚠';
+  return '·';
+}
+
 export function abrirFicha(idx, data) {
   saveHistorial(idx);
   const m = data[idx];
@@ -12,17 +33,21 @@ export function abrirFicha(idx, data) {
   const cont = document.getElementById('ficha-content');
   let html = '';
 
+  const riesgoStrip = document.getElementById('riesgo-strip');
   if (m.alto_riesgo) {
-    html += `
-      <div class="alert-banner alert-riesgo">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
-        </svg>
-        <div>
-          <strong>Medicamento de alto riesgo</strong>
-          <div style="margin-top: 4px; font-size: 13px;">${escapeHtml(m.alto_riesgo.pauta_vigilancia || '')}</div>
-        </div>
-      </div>`;
+    riesgoStrip.style.display = 'flex';
+    if (m.alto_riesgo.pauta_vigilancia) {
+      html += `
+        <div class="alert-banner alert-riesgo">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          <div><div style="font-size: 13px;">${escapeHtml(m.alto_riesgo.pauta_vigilancia)}</div></div>
+        </div>`;
+    }
+  } else {
+    riesgoStrip.style.display = 'none';
   }
 
   if (m.presentaciones && m.presentaciones.length) {
@@ -98,13 +123,24 @@ export function abrirFicha(idx, data) {
       }
 
       if (p.seguridad && Object.values(p.seguridad).some(v => v)) {
-        html += `<div class="subsection"><div class="subsection-title">Seguridad</div><dl class="kv">`;
-        if (p.seguridad.embarazo) html += `<dt>Embarazo</dt><dd>${escapeHtml(p.seguridad.embarazo)}</dd>`;
-        if (p.seguridad.lactancia) html += `<dt>Lactancia</dt><dd>${escapeHtml(p.seguridad.lactancia)}</dd>`;
-        if (p.seguridad.fotosensibilidad) html += `<dt>Fotosensibilidad</dt><dd>${escapeHtml(p.seguridad.fotosensibilidad)}</dd>`;
-        if (p.seguridad.bomba_infusion) html += `<dt>Bomba infusión</dt><dd>${escapeHtml(p.seguridad.bomba_infusion)}</dd>`;
-        if (p.seguridad.alcohol_bencilico) html += `<dt>Alcohol bencílico</dt><dd>${escapeHtml(p.seguridad.alcohol_bencilico)}</dd>`;
-        html += `</dl></div>`;
+        html += `<div class="subsection"><div class="subsection-title">Seguridad</div><div class="safety-grid">`;
+        const campos = [
+          { key: 'embarazo',        label: 'Embarazo' },
+          { key: 'lactancia',       label: 'Lactancia' },
+          { key: 'fotosensibilidad',label: 'Fotosensibilidad' },
+          { key: 'bomba_infusion',  label: 'Bomba infusión' },
+          { key: 'alcohol_bencilico', label: 'Alcohol bencílico' },
+        ];
+        campos.forEach(({ key, label }) => {
+          const val = p.seguridad[key];
+          if (!val) return;
+          const cls = safetyClass(key, val);
+          html += `<div class="safety-item safety-${cls}">
+            <span class="safety-label">${safetyIcon(cls)} ${label}</span>
+            <span class="safety-value">${escapeHtml(val)}</span>
+          </div>`;
+        });
+        html += `</div></div>`;
       }
 
       if (p.propiedades_fq && Object.values(p.propiedades_fq).some(v => v)) {

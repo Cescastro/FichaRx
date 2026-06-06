@@ -20,9 +20,6 @@ export function renderResultados(resultados, query, data) {
     if (!historial.length) {
       cont.innerHTML = `
         <div class="empty-state">
-          <div style="background:white;border-radius:16px;padding:16px 20px;margin-bottom:20px;box-shadow:0 4px 16px rgba(0,0,0,0.10);display:inline-block;">
-            <img src="VidaCheck_full.png" alt="VidaCheck" style="width:240px;height:auto;display:block;">
-          </div>
           <p style="font-size: 15px; margin-bottom: 6px;">Busca por nombre genérico o comercial</p>
           <p style="font-size: 13px;">${data.length} medicamentos disponibles · 100% offline</p>
         </div>`;
@@ -49,7 +46,7 @@ export function renderResultados(resultados, query, data) {
       (m.vida_multidosis || []).forEach(v => { if (v.marca) comerciales.add(v.marca); });
       const comercialesText = [...comerciales].slice(0, 3).join(' · ');
       html += `
-        <div class="result-item" tabindex="0" onclick="abrirFicha(${idx})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();abrirFicha(${idx})}">
+        <div class="result-item${m.alto_riesgo ? ' is-riesgo' : ''}" tabindex="0" onclick="abrirFicha(${idx})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();abrirFicha(${idx})}">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--gray-400);flex-shrink:0;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           <div style="flex:1; min-width: 0;">
             <div class="result-name">${escapeHtml(m.nombre_generico || m.nombre_base)}${tags.join('')}</div>
@@ -88,7 +85,7 @@ export function renderResultados(resultados, query, data) {
     (m.vida_multidosis || []).forEach(v => { if (v.marca) comerciales.add(v.marca); });
     const comercialesText = [...comerciales].slice(0, 3).join(' · ');
     html += `
-      <div class="result-item" tabindex="0" onclick="abrirFicha(${r.idx})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();abrirFicha(${r.idx})}">
+      <div class="result-item${m.alto_riesgo ? ' is-riesgo' : ''}" tabindex="0" onclick="abrirFicha(${r.idx})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();abrirFicha(${r.idx})}">
         <div style="flex:1; min-width: 0;">
           <div class="result-name">${resaltar(m.nombre_generico || m.nombre_base, query)}${tags.join('')}</div>
           ${comercialesText ? `<div class="result-meta">${escapeHtml(comercialesText)}</div>` : ''}
