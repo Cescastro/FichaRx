@@ -89,6 +89,13 @@ window.showTab = showTab;
 
 init();
 
+document.getElementById('ficha-content').addEventListener('click', (e) => {
+  const sectionHead = e.target.closest('[data-toggle="section"]');
+  if (sectionHead) { sectionHead.closest('.section').classList.toggle('collapsed'); return; }
+  const presHead = e.target.closest('[data-toggle="pres"]');
+  if (presHead) { presHead.closest('.presentacion-card').classList.toggle('collapsed'); }
+});
+
 // Búsqueda compacta en header: aparece cuando el buscador principal sale del viewport
 const headerSearchWrap = document.getElementById('header-search-wrap');
 const headerSearchInput = document.getElementById('header-search');

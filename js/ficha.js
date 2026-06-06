@@ -53,25 +53,29 @@ export function abrirFicha(idx, data) {
   if (m.presentaciones && m.presentaciones.length) {
     html += `
       <div class="section">
-        <div class="section-header">
+        <div class="section-header" data-toggle="section">
           <div class="section-icon icon-teal">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M10 2v7.31"/><path d="M14 9.3V1.99"/><path d="M8.5 2h7"/><path d="M14 9.3a6.5 6.5 0 1 1-4 0"/>
             </svg>
           </div>
           <h3>Presentaciones y estabilidad (${m.presentaciones.length})</h3>
+          <svg class="section-toggle" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
         </div>
         <div class="section-body">`;
 
-    m.presentaciones.forEach(p => {
-      html += `<div class="presentacion-card">`;
-      html += `<div class="pres-head">`;
+    m.presentaciones.forEach((p, presIdx) => {
+      const autoCollapsed = m.presentaciones.length > 1 && presIdx > 0;
+      html += `<div class="presentacion-card${autoCollapsed ? ' collapsed' : ''}">`;
+      html += `<div class="pres-head" data-toggle="pres">`;
       html += `<span class="pres-name">${escapeHtml(p.nombre_comercial || 'Sin marca')}</span>`;
       if (p.laboratorio) html += `<span class="pres-lab">${escapeHtml(p.laboratorio)}</span>`;
       if (p.presentacion || p.forma_farmaceutica) {
         html += `<span class="pres-sub">${escapeHtml(p.presentacion || p.forma_farmaceutica)}</span>`;
       }
+      html += `<svg class="pres-toggle" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>`;
       html += `</div>`;
+      html += `<div class="pres-body">`;
 
       if (p.reconstitucion && Object.keys(p.reconstitucion).length) {
         html += `<div class="subsection"><div class="subsection-title">Reconstitución</div><dl class="kv">`;
@@ -158,7 +162,8 @@ export function abrirFicha(idx, data) {
         html += `<div class="subsection" style="font-size: 11px; color: var(--text-muted);">📚 ${escapeHtml(p.referencia || p.referencia_bibliografica)}</div>`;
       }
 
-      html += `</div>`;
+      html += `</div>`; // pres-body
+      html += `</div>`; // presentacion-card
     });
     html += `</div></div>`;
   }
@@ -166,13 +171,14 @@ export function abrirFicha(idx, data) {
   if (m.vida_multidosis && m.vida_multidosis.length) {
     html += `
       <div class="section">
-        <div class="section-header">
+        <div class="section-header" data-toggle="section">
           <div class="section-icon icon-amber">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
             </svg>
           </div>
           <h3>Vida útil después de apertura (multidosis)</h3>
+          <svg class="section-toggle" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
         </div>
         <div class="section-body">`;
     m.vida_multidosis.forEach(v => {
@@ -196,13 +202,14 @@ export function abrirFicha(idx, data) {
   if (m.horario_vo) {
     html += `
       <div class="section">
-        <div class="section-header">
+        <div class="section-header" data-toggle="section">
           <div class="section-icon icon-purple">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M11 3H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h6"/><polyline points="12 16 16 12 20 16"/><path d="M16 12v9"/><path d="M19 5h.01M15 5h.01M11 5h.01"/>
             </svg>
           </div>
           <h3>Administración por vía oral</h3>
+          <svg class="section-toggle" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
         </div>
         <div class="section-body"><dl class="kv">`;
     if (m.horario_vo.horario) html += `<dt>Horario</dt><dd>${escapeHtml(m.horario_vo.horario)}</dd>`;
@@ -213,13 +220,14 @@ export function abrirFicha(idx, data) {
   if (m.fuentes && m.fuentes.length) {
     html += `
       <div class="section">
-        <div class="section-header">
+        <div class="section-header" data-toggle="section">
           <div class="section-icon icon-gray">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
             </svg>
           </div>
           <h3>Fuentes consultadas</h3>
+          <svg class="section-toggle" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
         </div>
         <div class="section-body">
           <div class="fuentes-list">
