@@ -1,5 +1,5 @@
 // Service Worker — FichaRx · Manual de medicamentos FO-SF-20
-const CACHE_NAME = 'fichaRx-v5';
+const CACHE_NAME = 'fichaRx-v6';
 const ASSETS = [
   './',
   'index.html',
@@ -50,14 +50,37 @@ globalThis.addEventListener('activate', (event) => {
 
 globalThis.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
-  event.respondWith(
-    caches.match(event.request).then((cached) => {
-      if (cached) return cached;
-      return fetch(event.request).then((res) => {
-        const copy = res.clone();
-        caches.open(CACHE_NAME).then((c) => c.put(event.request, copy));
-        return res;
-      }).catch(() => caches.match('index.html'));
-    })
-  );
+
+  const url = new URL(event.request.url);
+  const isNavigation = event.request.mode === 'navigate';
+  const isData = url.pathname.endsWith('.json');
+
+  if (isNavigation || isData) {
+    // Network First: garantiza contenido fresco en cada refresh.
+    // Cae a caché solo si no hay red (modo offline).
+    event.respondWith(
+      fetch(event.request)
+        .then((res) => {
+          const copy = res.clone();
+          caches.open(CACHE_NAME).then((c) => c.put(event.request, copy));
+          return res;
+        })
+        .catch(() =>
+          caches.match(event.request).then((cached) => cached ?? caches.match('index.html'))
+        )
+    );
+  } else {
+    // Cache First para assets estáticos (CSS, JS, imágenes).
+    // Si no están en caché, los descarga y los guarda.
+    event.respondWith(
+      caches.match(event.request).then((cached) => {
+        if (cached) return cached;
+        return fetch(event.request).then((res) => {
+          const copy = res.clone();
+          caches.open(CACHE_NAME).then((c) => c.put(event.request, copy));
+          return res;
+        }).catch(() => caches.match('index.html'));
+      })
+    );
+  }
 });
