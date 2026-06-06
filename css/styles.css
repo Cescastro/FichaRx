@@ -116,6 +116,19 @@ header {
   font-size: 15px; font-style: italic; font-weight: 500;
   color: var(--teal-900); text-align: center; line-height: 1.5;
 }
+.install-platform { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
+.install-platform:first-of-type { margin-top: 8px; }
+.install-platform-label {
+  font-size: 12px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.05em; color: var(--teal-700); margin-bottom: 10px;
+}
+.install-steps { padding-left: 20px; margin: 0; }
+.install-steps li {
+  font-size: 14px; color: var(--gray-700); line-height: 1.6;
+  margin-bottom: 6px; padding-left: 4px;
+}
+.install-steps li:last-child { margin-bottom: 0; }
+
 .about-authors {
   background: var(--gray-50); border: 1px solid var(--border); border-radius: 12px;
   padding: 16px 20px;
