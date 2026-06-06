@@ -1,5 +1,5 @@
 // Service Worker — FichaRx · Manual de medicamentos FO-SF-20
-const CACHE_NAME = 'fichaRx-v4';
+const CACHE_NAME = 'fichaRx-v5';
 const ASSETS = [
   './',
   'index.html',
@@ -7,33 +7,48 @@ const ASSETS = [
   'manifest.webmanifest',
   'css/styles.css',
   'js/app.js',
-  'js/search.js',
-  'js/render.js',
-  'js/ficha.js',
-  'js/history.js',
-  'js/utils.js',
+  'js/utils/html.js',
+  'js/utils/normalizer.js',
+  'js/domain/Medicamento.js',
+  'js/infrastructure/JsonMedicamentosRepository.js',
+  'js/infrastructure/LocalStorageHistorialRepo.js',
+  'js/application/BusquedaService.js',
+  'js/application/commands/AbrirFichaCommand.js',
+  'js/application/commands/BuscarCommand.js',
+  'js/application/commands/CerrarFichaCommand.js',
+  'js/presentation/AppController.js',
+  'js/presentation/FichaBuilder.js',
+  'js/presentation/FichaView.js',
+  'js/presentation/ResultadosRenderer.js',
+  'js/presentation/SectionFactory.js',
+  'js/presentation/sections/SectionRenderer.js',
+  'js/presentation/sections/AltoRiesgoSection.js',
+  'js/presentation/sections/PresentacionesSection.js',
+  'js/presentation/sections/MultidosisSection.js',
+  'js/presentation/sections/HorarioVoSection.js',
+  'js/presentation/sections/FuentesSection.js',
   'img/FichaRX_Logo.svg',
   'img/RxLogo.png',
   'img/fichaRxbanner.png',
 ];
 
-self.addEventListener('install', (event) => {
+globalThis.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS))
   );
-  self.skipWaiting();
+  globalThis.skipWaiting();
 });
 
-self.addEventListener('activate', (event) => {
+globalThis.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
       Promise.all(keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k)))
     )
   );
-  self.clients.claim();
+  globalThis.clients.claim();
 });
 
-self.addEventListener('fetch', (event) => {
+globalThis.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
   event.respondWith(
     caches.match(event.request).then((cached) => {
