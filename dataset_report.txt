@@ -1,0 +1,71 @@
+======================================================================
+REPORTE DE CALIDAD — dataset_final.json
+======================================================================
+Total registros: 842
+
+── Registros por fuente ──────────────────────────────────────────
+  Horario VO                  302 registros
+  Multidosis                  266 registros
+  Generales                   234 registros
+  Oncológicos                 114 registros
+  UCI/UCE                      97 registros
+  Alto riesgo                  57 registros
+  Profilaxis                   14 registros
+
+── Presentaciones sin referencia bibliográfica ────────────────────
+  Total: 491
+  ACIDO IBANDRONICO [oncologicos]
+  ACIDO IBANDRONICO [oncologicos]
+  ACIDO ZOLEDRONICO [oncologicos]
+  ALEMTUZUMAB 12MG/1,2ML [oncologicos]
+  AMINOFILINA [generales]
+  AMINOFILINA [generales]
+  AMPICILINA (SAL SODICA) [generales]
+  AMPICILINA (SAL SODICA) [generales]
+  AMPICILINA (SAL SODICA) [generales]
+  AMPICILINA (SAL SODICA) [generales]
+  AMPICILINA (SAL SODICA) [generales]
+  AMPICILINA - SULBACTAM [generales]
+  AMPICILINA SODICA - SULBACTAM SODICO [generales]
+  AMPICILINA SODICA - SULBACTAM SODICO [generales]
+  AMPICILINA SODICA - SULBACTAM SODICO [generales]
+  AMPICILINA SODICA - SULBACTAM SODICO [generales]
+  AMPICILINA SODICA - SULBACTAM SODICO [generales]
+  AMPICILINA SULBACTAM [profilaxis]
+  AMPICILINA SULBACTAM [profilaxis]
+  ANFOTERICINA B [generales]
+  ... y 471 más
+
+── Presentaciones (generales) sin vía de administración ───────────
+  Total: 257
+  AMINOFILINA
+  AMINOFILINA
+  AMPICILINA (SAL SODICA)
+  AMPICILINA (SAL SODICA)
+  AMPICILINA (SAL SODICA)
+  AMPICILINA (SAL SODICA)
+  AMPICILINA - SULBACTAM
+  AMPICILINA SODICA - SULBACTAM SODICO
+  AMPICILINA SODICA - SULBACTAM SODICO
+  ANFOTERICINA B
+  ANIDALOFUNGINA
+  AZTREONAM
+  CALCIO GLUCONATO
+  CALCIO GLUCONATO
+  CASPOFUNGINA
+
+── Presentaciones sin diluciones válidas ──────────────────────────
+  Total: 11
+  CEFALOTINA
+  CEFALOTINA
+  CEFALOTINA
+  CEFALOTINA
+  CEFEPIME
+  CEFEPIME
+  CEFEPIME
+  CEFEPIME
+  ERITROPOYETINA
+  ERITROPOYETINA
+  MEROPENEM
+
+======================================================================
